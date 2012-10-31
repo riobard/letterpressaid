@@ -14,7 +14,7 @@ $(BUILD_DIR)/%.js: %.js
 	closure-compiler --compilation_level ADVANCED_OPTIMIZATIONS $< > $@
 
 
-$(BUILD_DIR)/words.txt: wordlist.gz
+$(BUILD_DIR)/words.txt: words.gz
 	gunzip -c $< | ./train.py > $@
 
 
