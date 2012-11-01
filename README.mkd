@@ -5,14 +5,29 @@ Beat your friends in [Letterpress][letterpress] (an iOS game)! Visit
 [here][letterpressaid] to use the tool. 
 
 
+Requirements
+----
+
+* Google [closure compiler][closure]
+* [htmlcompressor][htmlcompressor]
+* gzip utility
+* Python 2.6+
+
+
 Build Instructions
 ----
 
-Just run `make` and it should produce a complete build. For the HTML5 applcation
-cache to work, you need to configure your web server to serve the correct MIME
-type for the file `cache.manifest`. The `*.gz` files are for Nginx static gzip
-module. 
+Just run `make` to produce a build. Upload the `build` directory to your web
+server and it should be done. 
+
+For the HTML5 offline application cache to work, you need to configure your web
+server to serve the correct MIME type `text/cache-manifest` for the file
+`cache.manifest`. All `*.gz` files in the `build` directory are for [Nginx
+static gzip module][nginx-static-gzip]. 
 
 
 [letterpress]: https://itunes.apple.com/us/app/letterpress-word-game/id526619424 "Letterpress"
 [letterpressaid]: http://riobard.com/letterpressaid/ "Letterpress Aid"
+[nginx-static-gzip]: http://wiki.nginx.org/HttpGzipStaticModule
+[closure]: https://developers.google.com/closure/compiler/
+[htmlcompressor]: http://code.google.com/p/htmlcompressor/
