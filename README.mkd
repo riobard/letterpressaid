@@ -1,8 +1,17 @@
 Lettepress Aid
 ====
 
-Beat your friends in [Letterpress (iOS game)][letterpress]! Visit
+Beat your friends in [Letterpress][letterpress] (an iOS game)! Visit
 [here][letterpress] to use the tool. 
+
+
+Build Instructions
+----
+
+Just run `make` and it should produce a complete build. For the HTML5 applcation
+cache to work, you need to configure your web server to serve the correct MIME
+type for the file `cache.manifest`. The `*.gz` files are for Nginx static gzip
+module. 
 
 
 [letterpress]: https://itunes.apple.com/us/app/letterpress-word-game/id526619424 "Letterpress"
