@@ -1,0 +1,9 @@
+Lettepress Aid
+====
+
+Beat your friends in [Letterpress (iOS game)][letterpress]! Visit
+[here][letterpress] to use the tool. 
+
+
+[letterpress]: https://itunes.apple.com/us/app/letterpress-word-game/id526619424 "Letterpress"
+[letterpressaid]: http://riobard.com/letterpressaid/ "Letterpress Aid"
