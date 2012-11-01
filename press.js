@@ -2,7 +2,6 @@
   "use strict";
   var CELLS = [], 
       WORDS = [],
-      KEYS  = [],
       INDICE= [],
       MUSTHAVE = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 
@@ -26,10 +25,20 @@
     return true;
   }
 
+  function parse(words) {
+    var groups = words.split(";");
+    var words = [];
+    for (var i=0, l=groups.length; i<l; i++) {
+      var anagrams = groups[i].split(",");
+      words.push(anagrams);
+    }
+    WORDS = words;
+  }
+
   function find(letters) {
     var freq = decompose(letters), indice = [];
-    for (var i=0, l=KEYS.length; i<l; i++) {
-      var k = KEYS[i];
+    for (var i=0, l=WORDS.length; i<l; i++) {
+      var k = decompose(WORDS[i][0]);
       if (k > freq) break;
       if (covered(freq, k)) indice.push(i);
     }
@@ -38,12 +47,20 @@
   }
 
   function filter(musthave) {
-    var res = [];
+    var words = [];
     for (var i=0,il=INDICE.length; i<il; i++) {
       var idx = INDICE[i];
-      if (covered(KEYS[idx], musthave)) res.push(idx);
+      if (covered(decompose(WORDS[idx][0]), musthave)) {
+        var anagrams = WORDS[idx];
+        for (var j=0,jl=anagrams.length; j<jl; j++)
+          words.push(anagrams[j]);
+      }
     }
-    show(res);
+    words.sort(function(x, y) {
+      if (x.length != y.length) { return y.length - x.length; }
+      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+    msg(words.join(" "));
   }
 
   function $(id) {
@@ -102,17 +119,6 @@
   }
 
 
-  function parseWords(words) {
-    var groups = words.split(";"), words = [], keys = [];
-    for (var i=0, l=groups.length; i<l; i++) {
-      var anagrams = groups[i].split(",");
-      words.push(anagrams);
-      keys.push(decompose(anagrams[0]));
-    }
-    WORDS = words;
-    KEYS = keys;
-  }
-
 
   function get(path, success) {
     var xhr = new XMLHttpRequest();
@@ -121,21 +127,6 @@
     };
     xhr.open("GET", path, true);
     xhr.send();
-  }
-
-  function show(res) {
-    var words = [];
-    for (var i=0,il=res.length; i<il; i++) {
-      var idx = res[i];
-      var anagrams = WORDS[idx];
-      for (var j=0,jl=anagrams.length; j<jl; j++)
-        words.push(anagrams[j]);
-    }
-    words.sort(function(x, y) {
-      if (x.length != y.length) { return y.length - x.length; }
-      return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-    });
-    msg(words.join(" "));
   }
 
   function letters(v) {
@@ -161,7 +152,7 @@
     msg("(loading...)");
     get("words.txt", function(xhr){ 
       msg("(analyzing...)");
-      parseWords(xhr.responseText);
+      parse(xhr.responseText);
       msg();
       var s = letters();
       if (s.length == 25) find(s);
