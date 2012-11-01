@@ -2,7 +2,7 @@ Lettepress Aid
 ====
 
 Beat your friends in [Letterpress][letterpress] (an iOS game)! Visit
-[here][letterpress] to use the tool. 
+[here][letterpressaid] to use the tool. 
 
 
 Build Instructions
