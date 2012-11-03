@@ -1,4 +1,4 @@
-;(function(window, undefined){
+(function(window, undefined){
   "use strict";
   var CELLS = [], 
       WORDS = [],
@@ -27,12 +27,12 @@
 
   function parse(words) {
     var groups = words.split(";");
-    var words = [];
+    var res = [];
     for (var i=0, l=groups.length; i<l; i++) {
       var anagrams = groups[i].split(",");
-      words.push(anagrams);
+      res.push(anagrams);
     }
-    WORDS = words;
+    WORDS = res;
   }
 
   function find(letters) {
@@ -101,8 +101,8 @@
   function toggleCell(e) {
     e.preventDefault();
     var el = e.srcElement;
-    var i = parseInt(el.id[1]);
-    var j = parseInt(el.id[2]);
+    var i = parseInt(el.id[1], 10);
+    var j = parseInt(el.id[2], 10);
     var idx = el.innerText.charCodeAt(0) - "A".charCodeAt(0);
     if (el.className == "cell") {
         el.className = "cell yellow";
@@ -131,7 +131,7 @@
 
   function letters(v) {
     var el = $("letters");
-    if (typeof v == "string") el.value = v.slice(0, 25).toUpperCase()
+    if (typeof v == "string") el.value = v.slice(0, 25).toUpperCase();
     return el.value.slice(0, 25).toUpperCase();
   }
 
